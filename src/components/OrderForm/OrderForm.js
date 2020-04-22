@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { postOrder } from '../../apiCalls';
+import { postOrder, getOrders } from '../../apiCalls';
+import { connect } from 'react-redux';
+import { setOrders } from '../../actions';
 
 class OrderForm extends Component {
   constructor(props) {
@@ -20,10 +22,14 @@ class OrderForm extends Component {
     this.setState({ingredients: [...this.state.ingredients, e.target.name]});
   }
 
-  handleSubmit = e => {
+  handleSubmit = async e => {
     e.preventDefault();
     const data = {name: this.state.name, ingredients: this.state.ingredients};
-    postOrder(data);
+    const order = await postOrder(data);
+    getOrders()
+      .then(data => this.props.setOrders(data.orders))
+      .catch(err => console.error('Error fetching:', err));
+      
     this.clearInputs();
   }
 
@@ -64,4 +70,10 @@ class OrderForm extends Component {
   }
 }
 
-export default OrderForm;
+const mapDispatchToProps = dispatch => (
+  {
+    setOrders: (orders) => dispatch(setOrders(orders))
+  }
+);
+
+export default connect(null, mapDispatchToProps)(OrderForm);

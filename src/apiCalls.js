@@ -3,15 +3,16 @@ export const getOrders = () => {
       .then(response => response.json())
 }
 
-export const postOrder = data => {
+export const postOrder = async data => {
   data = JSON.stringify(data);
-  return fetch('http://localhost:3001/api/v1/orders', {
+  const res = await fetch('http://localhost:3001/api/v1/orders', {
     method: "POST",
     headers: {
           "Content-Type": "application/json"
         },
     body: data
   })
-  .then(response => response.json())
-  .then(data => console.log(data))
+
+  const json = await res.json();
+  return json;
 }
