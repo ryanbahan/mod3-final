@@ -70,10 +70,10 @@ class OrderForm extends Component {
 
         <p>Order: { this.state.ingredients.join(', ') || 'Nothing selected' }</p>
 
-        <button disabled={!this.state.ingredients.length}>
+        <button type='submit' disabled={!this.state.ingredients.length}>
           Submit Order
         </button>
-        <button onClick={() => this.clearInputs()}>Clear order</button>
+        <button type="button" onClick={() => this.clearInputs()}>Clear order</button>
       </form>
     )
   }
