@@ -2,7 +2,7 @@ import React from 'react';
 import './Orders.css';
 import { connect } from 'react-redux';
 import { setOrders } from '../../actions';
-import { getOrders } from '../../apiCalls';
+import { getOrders, deleteOrder } from '../../apiCalls';
 
 class Orders extends React.Component {
   constructor(props) {
@@ -11,6 +11,13 @@ class Orders extends React.Component {
   }
 
   componentDidMount() {
+    getOrders()
+      .then(data => this.props.setOrders(data.orders))
+      .catch(err => console.error('Error fetching:', err));
+  }
+
+  deleteOrder = async e => {
+    const deleteStatus = await deleteOrder(e.target.id);
     getOrders()
       .then(data => this.props.setOrders(data.orders))
       .catch(err => console.error('Error fetching:', err));
@@ -25,6 +32,7 @@ class Orders extends React.Component {
             return <li key={Date.now() + Math.random()}>{ingredient}</li>
           })}
         </ul>
+        <button onClick={this.deleteOrder} id={order.id}>Delete</button>
       </div>
     )
   });

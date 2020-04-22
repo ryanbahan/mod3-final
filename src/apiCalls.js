@@ -16,3 +16,11 @@ export const postOrder = async data => {
   const json = await res.json();
   return json;
 }
+
+export const deleteOrder = async id => {
+  const res = await fetch(`http://localhost:3001/api/v1/orders/${id}`, {
+    method: "DELETE",
+  })
+
+  return res.status;
+}
