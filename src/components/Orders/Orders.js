@@ -15,14 +15,14 @@ class Orders extends React.Component {
       .then(data => this.props.setOrders(data.orders))
       .catch(err => console.error('Error fetching:', err));
   }
-  
+
   orderEls = () => this.props.orders.map(order => {
     return (
-      <div className="order">
+      <div className="order" key={Date.now() + Math.random()}>
         <h3>{order.name}</h3>
         <ul className="ingredient-list">
           {order.ingredients.map(ingredient => {
-            return <li>{ingredient}</li>
+            return <li key={Date.now() + Math.random()}>{ingredient}</li>
           })}
         </ul>
       </div>
