@@ -37,11 +37,19 @@ class OrderForm extends Component {
     this.setState({name: '', ingredients: []});
   }
 
+  checkActiveIngredient = (ingredient) => {
+    if (this.state.ingredients.find(item => item === ingredient)) {
+      return true
+    } else {
+      return false;
+    }
+  }
+
   render() {
     const possibleIngredients = ['beans', 'steak', 'carnitas', 'sofritas', 'lettuce', 'queso fresco', 'pico de gallo', 'hot sauce', 'guacamole', 'jalapenos', 'cilantro', 'sour cream'];
     const ingredientButtons = possibleIngredients.map(ingredient => {
       return (
-        <button key={ingredient} name={ingredient} onClick={e => this.handleIngredientChange(e)}>
+        <button key={ingredient} name={ingredient} onClick={e => this.handleIngredientChange(e)} disabled={this.checkActiveIngredient(ingredient)}>
           {ingredient}
         </button>
       )
@@ -65,6 +73,7 @@ class OrderForm extends Component {
         <button disabled={!this.state.ingredients.length}>
           Submit Order
         </button>
+        <button onClick={() => this.clearInputs()}>Clear order</button>
       </form>
     )
   }
