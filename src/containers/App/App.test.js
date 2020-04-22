@@ -17,6 +17,13 @@ describe("OrderForm", () => {
   })
 
   it("should render the correct content", () => {
+    const { getByText } = utils;
+
+    const header = getByText("Burrito Builder");
+    const placeholder = getByText("No orders yet!");
+
+    expect(header).toBeInTheDocument();
+    expect(placeholder).toBeInTheDocument();
   })
 
 })
