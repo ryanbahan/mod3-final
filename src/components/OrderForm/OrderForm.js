@@ -29,7 +29,7 @@ class OrderForm extends Component {
     getOrders()
       .then(data => this.props.setOrders(data.orders))
       .catch(err => console.error('Error fetching:', err));
-      
+
     this.clearInputs();
   }
 
